@@ -46,11 +46,23 @@
 
 
   <style>
-   body {
-  background: linear-gradient(135deg, #f5deb3 0%, #fdf5e6 100%);
+  body {
+  background: linear-gradient(135deg, #f0e4d7 0%, #fdf5e6 100%);
+  background-size: cover;
+  background-attachment: fixed;
   color: #333;
   font-family: 'Cooper Black', serif;
   padding: 20px;
+
+  /* Subtle texture pattern using data URI or small PNG for noise effect */
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill-opacity='0.05' fill='%23000000'%3E%3Crect width='30' height='30'/%3E%3Crect x='30' y='30' width='30' height='30'/%3E%3C/g%3E%3C/svg%3E"),
+                    linear-gradient(135deg, #f0e4d7 0%, #fdf5e6 100%);
+}
+
+/* Remove any 70s image background from other sections */
+.navbar,
+.wallet-background-section {
+  background: transparent !important;
 }
 
 .navbar {
@@ -189,21 +201,22 @@ h1 {
       display: none;
     }
 
-  .ipfs-section {
-  height: 200px; /* Set fixed height */
+  .ipfs-section { 
+  height: 200px; /* Fixed height */
   margin-top: 30px;
   padding: 20px;
   background-image: url('/70sImage.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  background-color: rgba(0, 0, 0, 0.15); /* Use background-color, not background! */
   position: relative;
   border-radius: 5px;
   color: white;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
   z-index: 1;
-	background: rgba(0, 0, 0, 0.15);
 }
+
 
 
 /* Ensure overlay does NOT block background image */
