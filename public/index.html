@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YHDYWEJ3JH"></script>
+
+
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YHDYWEJ3JH');
+</script>
+
+
+
+<!-- ✅ Ethers -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+
+
+	<script src="/scripts/submitUserOp.js"></script>
+
+
+  <meta charset="UTF-8">
+  <!-- Viewport for mobile scaling -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MyLockChain - Lock Down Your Title</title>
+
+  <!-- Include Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.7.4/dist/web3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AdY2bGMmaWQUKSvI86C3N6nMvblKzy17YWggWvPeCv9hwIyVdjTGnLj8xrOkLxaXD9xUgV9yWRexdujU&currency=USD"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cooper+Black&display=swap" rel="stylesheet">
+
+
+
+  <style>
+    body {
+    background: #212121;
+    color: #fff8e1;
+    font-family: 'Shrikhand', cursive; /* 70’s vibe */
+    padding: 20px;
+  }
+  .navbar, .wallet-background-section, .ipfs-section {
+  background: url('/70sImage.png') no-repeat center center;
+  background-size: cover;
+  position: relative;
+  color: #fff;
+}
+
+.navbar::before, .wallet-background-section::before, .ipfs-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 0;
+  border-radius: 5px;
+}
+.navbar h1, .navbar p {
+  position: relative;
+  z-index: 1;
+}
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      color: #333; /* <-- Darker text for better contrast */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container p {
+   font-size: 1.1em;
+  line-height: 1.6;
+  color: #333; /* <-- Darker text for better contrast */
+}
+h1 {
+    font-size: 2.5em;
+    color: #ff6f00;
+    text-shadow: 2px 2px #000;
+    margin-bottom: 0;
+  }
+	  
+	   p {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+	h1, p {
+  font-family: 'Cooper Black', serif;
+  }  
+	  
+    h2, h3 {
+      color: #1e429f;
+    }
+    button {
+	  background-color: #1e429f;
+	  color: white;
+	  padding: 12px 20px;  /* Slightly increased padding */
+	  border: none;
+	  border-radius: 5px;
+	  cursor: pointer;
+	  font-weight: bold;
+	  margin-top: 15px;  /* Increased space above the button */
+	  margin-bottom: 15px;  /* Increased space below the button */
+	  display: block; /* Ensures buttons are on separate lines */
+	  width: fit-content; /* Prevents buttons from stretching */
+	}
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    /* Separate styling for text inputs (e.g., Enter IPFS Hash) */
+  input[type="text"] {
+    margin: 20px 0;
+    padding: 10px;
+    width: calc(100% - 22px);
+    box-sizing: border-box;
+  }
+
+  /* Separate styling for file inputs (e.g., Choose File button) */
+  input[type="file"] {
+    margin: 20px 0;
+    padding: 10px;
+    width: auto; /* allow the browser to size it naturally */
+    box-sizing: border-box;
+    background-color: darkorange;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  /* Override for specific buttons to use dark orange */
+  #uploadBtn,
+  #registerButton {
+    background-color: darkorange !important;
+  }
+    #hashOutput {
+      word-break: break-word;
+      margin: 20px 0;
+      color: #1e429f;
+    }
+    #receipt {
+      display: none;
+      background-color: #e6f7ff;
+      border: 2px solid #1e429f;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      color: #333; /* <-- Darker text for better contrast */
+
+    }
+    #parcelResult {
+      background: #fafafa; border: 1px solid #ddd;
+      padding: 10px; margin-top: 10px; max-height: 300px; overflow: auto;
+      font-family: monospace; font-size: 0.9em;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #777;
+    }
+    #retrievedLink {
+      display: none;
+      color: #1e429f;
+      text-decoration: underline;
+      margin-top: 10px;
+    }
+
+    /* Collapsible / Hidden sections (if you still have them) */
+    .hidden-section {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fffcee;
+      border: 1px solid #f7daa3;
+      border-radius: 5px;
+      display: none;
+    }
+
+  .ipfs-section {
+  height: 200px; /* Set fixed height */
+  margin-top: 30px;
+  padding: 20px;
+  background-image: url('/May%2016,%202025,%2008_03_13%20AM.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  border-radius: 5px;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  z-index: 1;
+	background: rgba(0, 0, 0, 0.15);
+}
+
+
+/* Ensure overlay does NOT block background image */
+.ipfs-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  z-index: 0;
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+/* Ensure text stays above the overlay */
+.ipfs-section h3{
+  color: white; /* Change title color to white */
+  font-size: 1.8em; /* Slightly bigger font size */
+}
+.ipfs-section p{
+  font-size: 1.2em; /* Increase the text size slightly */
+  color: #ffffff !important;  /* Ensures text stays white */
+  font-weight: bold;          /* Makes text more readable */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* Adds a black outline */
+}
+.ipfs-section button {
+  position: relative;
+  z-index: 1;
+}
+
+/* Optional: Adjust button styles */
+.ipfs-section button {
+  background-color: #ff5722; /* Contrasting button color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.ipfs-section button:hover {
+  background-color: #e64a19; /* Darker shade for hover effect */
+}
+
+.step-image-section {
+    height: 200px; /* Fixed height */
+    margin-top: 20px; /* Adds spacing above */
+    background-image: url('/May%2016,%202025,%2008_03_13%20AM.png'); /* Replace with correct image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    position: relative;
+}
+
+/* Optional: Add an overlay effect for better visibility */
+.step-image-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Slight dark overlay */
+    border-radius: 5px;
+}
+
+.step-image-section img {
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+}
+
+	.wallet-background-section {
+    height: 600px; /* Fixed height */
+    margin-top: 20px; /* Adds spacing above */
+    margin-bottom: 20px; /* Adds spacing below */
+  background-image: url('/May%2016,%202025,%2008_03_13%20AM.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    position: relative;
+}
+
+/* Optional: Add an overlay effect */
+.wallet-background-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2); /* Slight dark overlay */
+    border-radius: 5px;
+}
+
+	  .shade-box {
+  background: #e0e0e0; /* Darker gray for better contrast */
+  padding: 15px;
+  margin-top: 30px;
+  border-radius: 5px;
+  color: #333; /* Darker text for better contrast */
+  border: 1px solid #b0b0b0; /* Adds a subtle border */
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+
+
+/* 🔁 Continuous slow pulse effect for "Upload and Hash" button */
+@keyframes slow-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(255, 87, 34, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 87, 34, 0);
+  }
+}
+
+@keyframes blue-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(30, 66, 159, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(30, 66, 159, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(30, 66, 159, 0);
+  }
+}
+
+#uploadBtn {
+  animation: slow-pulse 2.5s ease-in-out infinite;
+}
+
+#emailInput + button {
+  animation: blue-pulse 2.5s ease-in-out infinite;
+  background-color: #1e429f !important;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+#receipt label[for="email"] {
+  display: block;
+  margin-top: 20px;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #1e429f;
+}
+
+#fileInput {
+  padding: 10px 20px;
+  background-color: darkorange;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  animation: slow-pulse 2.5s ease-in-out infinite;
+}
+
+
+
+    /* Spinner Overlay */
+    #loadingOverlay {
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+#loadingOverlay p {
+  color: white;
+  font-size: 20px;
+  font-family: 'Orbitron', sans-serif;
+  white-space: pre-wrap;
+  max-width: 80%;
+}
+
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #1e429f;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+   /* Media Query for Mobile */
+    @media (max-width: 768px) {
+      .container {
+        width: auto;
+        margin: 10px;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 15px;
+      }
+      .navbar {
+        padding: 10px;
+      }
+      .navbar h1 {
+        font-size: 20px;
+      }
+      button {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    input[type="file"] {
+    max-width: 250px;
+    display: inline-block;
+  }
+    }
+
+
+    /* 🔧 Dim the PayPal fallback overlay if popup fails */
+#paypal-lightbox {
+  background-color: rgba(0, 0, 0, 0.7) !important;  /* darker dimming */
+  z-index: 9999 !important;
+  color: white !important;
+  font-size: 16px !important;
+  font-family: 'Orbitron', sans-serif !important;
+}
+
+#paypal-lightbox a {
+  color: #ff9800 !important;
+  text-decoration: underline !important;
+}
+
+  </style>
+</head>
+
+<body>
+<div class="navbar">
+  <h1>🎬 MyLockChain Solana</h1>
+<p style="font-size: 14px; margin-top: 5px; font-weight: bold;">
+  Blockbuster File Security via the Solana Blockchain 🎞️
+</p>
+
+</div>
+
+
+<div class="container">
+
+    <!-- Intro / Summary -->
+  <h1>MyLockChain Solana</h1>
+    <p>A Solana Picture | Filmed in Rust | Mastered with Anchor | Powered by $SOL</p>
+  </header>
+
+  <section class="intro">
+    <p>In a world where the truth is buried…</p>
+    <p>Where reels are edited, scenes go missing, and the chain of custody breaks under pressure…</p>
+    <p><strong>One protocol answers the call.</strong></p>
+
+    <p><strong>MyLockChain Solana</strong> is here — a decentralized archive forged for the big screen and the cold case file alike.</p>
+
+    <ul>
+      <li>Hashed. Pinned. Immutable. Permanent.</li>
+      <li>Stored via IPFS, anchored to Solana, sealed with the speed of Anchor + Rust.</li>
+    </ul>
+
+    <p>Crime scene videos. Legal depositions. Studio dailies. Evidence reels.</p>
+    <p><em>No edits. No erasures. No “missing footage.”</em></p>
+
+    <p>File by file, frame by frame — we lock down the truth.</p>
+    <p><strong>You don’t need a wallet. Just a file and a timestamp.</strong></p>
+  </section>
+
+  <!-- "How to Use" button + hidden 6 steps -->
+  <button onclick="toggleSection('howToUseSection')">How to Use MyLockChain</button>
+  <div id="howToUseSection" style="display:none; margin-top:30px;">
+    <!-- 6-step instructions from your code -->
+  <h2>How to Use MyLockChain</h2>
+
+  <h3>Step 1: Prepare Your Document</h3>
+  <p>
+    <strong>Gather Your PDF (or other file).</strong><br/>
+    - Choose the file you want to protect (e.g., a property deed).<br/>
+    - Make sure it’s in a supported format (usually PDF).<br/>
+    - Have it ready to upload in the next step.
+  </p>
+
+ <h3>Step 2: Pin Your Document on IPFS</h3>
+<p>
+  <strong>Upload &amp; Hash Document.</strong><br/>
+<p>
+Your deed isn’t just stored. It’s <em>cosmically pinned</em> to a constellation of IPFS nodes,
+while its hash blasts off to Neutron’s smart contract layer for permanent registration.
+</p>
+
+
+  - Click “Upload &amp; Hash Document” to pin the file on IPFS.<br/>
+  - <strong>Pinning</strong> means we keep a copy of your file on IPFS indefinitely,
+    so it’s always available—even if your computer is offline.<br/>
+  - <em>Why?</em> Your document is now decentralized and tamper-evident—any change
+    produces a new IPFS hash, revealing any forgery.
+</p>
+<p>
+  <strong>Pinning Fees &amp; File Size Limits:</strong><br/>
+  - Files up to 0.5MB: <strong>$3</strong><br/>
+  - 0.5MB &ndash; 5MB: <strong>$5</strong><br/>
+  - 5MB &ndash; 20MB: <strong>$10</strong><br/>
+  - 20MB &ndash; 50MB: <strong>$15</strong><br/>
+  - <em>Note:</em> Files over 50MB aren’t allowed.
+
+</p>
+<p>
+  <em>Why Pin?</em> Without pinning, your file might be garbage-collected if no node
+  hosts it. Pinning ensures permanence in the decentralized network.
+</p>
+
+
+  <h3>Step 3: Save Your Transaction Receipt &amp; IPFS Hash</h3>
+  <p>
+  Upon cosmic registration, you’ll receive an interstellar receipt (tx hash) proving your document’s orbit.<br/>
+  If anyone on Earth—or Mars—needs to verify it, just compare the file’s hash with what's etched in the chain.
+</p>
+
+</div>
+
+
+
+
+
+
+
+    <!-- Collapsible Section 1: Why Store Documents? -->
+    <div id="whyStoreSection" class="hidden-section">
+        <h3>Why Store Documents on MyLockChain?</h3>
+        <h4>Prevent Tampering &amp; Fraud</h4>
+        <p>
+            By hashing your file and storing that hash on the blockchain, you create
+            an unchangeable proof that the document existed exactly as-is at the time
+            of registration. If anyone edits the document, the hash no longer matches—instantly
+            revealing any forgery.
+        </p>
+        <h4>Decentralized &amp; Always Accessible</h4>
+        <p>
+            Traditional storage can fail if a single server goes down or a company closes.
+            But IPFS spreads files across many computers worldwide. Even if one “node” is offline,
+            others keep the file available. Your important records stay safe and globally accessible.
+        </p>
+        <h4>Privacy &amp; Security</h4>
+        <p>
+            <strong>Privacy:</strong> Only the file’s hash goes onto the blockchain—not the
+            actual file. This means no one can read your document just by looking at the
+            blockchain record.
+        </p>
+        <p>
+            <strong>Security:</strong> Because IPFS uses cryptographic hashes, any small
+            change creates a new hash. This prevents hidden alterations or data manipulation.
+        </p>
+        <h4>Lower Costs</h4>
+        <p>
+            Storing large files on a centralized service can be expensive, but with IPFS,
+            you pay primarily for what you choose to “pin.” Our fee structure ensures
+            you pay only for the file sizes you actually upload—nothing more.
+        </p>
+        <h4>Future-Proof for Legal Needs</h4>
+        <p>
+            In a dispute, you can produce your tamper-proof, time-stamped hash from the
+            blockchain and retrieve the exact file from IPFS. This level of immutability
+            is invaluable for title deeds, contracts, insurance documents, or any record
+            requiring legal certainty.
+        </p>
+        <h4>Easy Setup with Your Wallet</h4>
+        <p>
+            MyLockChain integrates directly with MetaMask or Coinbase Wallet. One click
+            connects your wallet, and a small ETH fee registers your file’s hash on the
+            blockchain. It’s as simple as uploading your document and clicking
+            “Register on Blockchain.”
+      </p>
+        <h4>How It All Works</h4>
+        <p>
+            <strong>Upload Document</strong> &rarr; We generate a unique hash using a
+            one-way function.<br/>
+            <strong>Store on IPFS</strong> &rarr; Your file is distributed across a peer-to-peer network,
+            ensuring resilient, censorship-proof access.<br/>
+            <strong>Register on Blockchain</strong> &rarr; The hash is permanently recorded,
+            creating a proof of existence. No central authority can alter or remove it.
+        </p>
+        <h4>Start Protecting Your Documents Now</h4>
+        <p>
+            With MyLockChain, your documents are safer, always retrievable, and legally verifiable.
+            Why trust a single server or paper record when you can harness the power of decentralization?
+            Upload today, and experience peace of mind knowing your titles, deeds, or critical records
+            are truly locked down.
+      </p>
+    </div>
+
+    <!-- Collapsible Section 2: Introducing IPFS -->
+    <div id="ipfsIntroSection" class="hidden-section">
+        <h3>Introducing IPFS: Safe &amp; Decentralized Document Storage</h3>
+        <p>
+            <strong>What Is IPFS?</strong><br/>
+            IPFS (InterPlanetary File System) is a global, peer-to-peer file network that breaks your file
+            into small pieces and stores them across many computers worldwide. Instead of depending on a
+            single server or company, your file is spread out and always accessible.
+        </p>
+        <h4>Why It’s Safe</h4>
+        <ul>
+            <li><strong>Redundant &amp; Decentralized:</strong> No single point of failure—if one node goes down,
+                other nodes still have your file.</li>
+            <li><strong>Content-Based Addressing:</strong> Every file is located by its unique cryptographic hash.
+                If anyone changes even one letter in your file, the hash changes, exposing tampering.</li>
+            <li><strong>Immutable Storage:</strong> Since each file fragment is verified against its hash, no one
+                can alter it without creating a brand-new hash. This makes your documents effectively tamper-proof.</li>
+        </ul>
+        <h4>Try It for Free (Up to 0.5MB)</h4>
+        <p>
+            MyLockChain allows free uploads for files under 0.5MB. Upload a small document,
+            see how the hash and IPFS storage work, and experience the benefits of decentralized
+            storage—all at no charge!
+      </p>
+        <h4>Secure Registration with Blockchain &amp; PayPal</h4>
+        <p>
+            <strong>Blockchain Registration:</strong> We store your document’s unique hash on the blockchain
+            for a tamper-proof record. No one—not even us—can alter it after it’s recorded.
+        </p>
+        <p>
+            <strong>PayPal-Enabled:</strong> For files larger than 0.5MB, we charge a small fee (based on file size)
+            to cover IPFS pinning and blockchain costs. You can easily pay using PayPal, a secure, globally recognized
+            payment method. Once confirmed, we finalize your IPFS upload and registration on the blockchain.
+        </p>
+        <h4>How It Works in 3 Easy Steps</h4>
+        <ol>
+            <li><strong>Upload:</strong> Select your PDF and click “Upload &amp; Hash.” Files under 0.5MB are free; for
+                larger files, you can pay with PayPal.</li>
+            <li><strong>Register:</strong> We record the hash on the blockchain, creating a tamper-proof record of ownership.</li>
+            <li><strong>Verify:</strong> Anyone can re-hash the file and compare it to the on-chain record. If they match,
+                the file is authentic.</li>
+        </ol>
+        <h4>Why Trust MyLockChain?</h4>
+        <ul>
+            <li><strong>User-Friendly:</strong> We handle the hashing and registration. No deep blockchain knowledge needed.</li>
+            <li><strong>Affordable:</strong> Pay only for the exact storage you need. Under 0.5MB is free!</li>
+            <li><strong>Flexible Payments:</strong> We support ETH transaction fees and PayPal for bigger files—no crypto required.</li>
+            <li><strong>Future-Proof:</strong> IPFS + blockchain ensures long-term, censorship-resistant availability.</li>
+        </ul>
+        <p>
+            <strong>Ready to Protect Your Documents?</strong><br/>
+            - Give It a Try: Upload a small file (0.5MB or less) for free.<br/>
+            - Secure Larger Documents: Pay via PayPal for bigger files.<br/>
+            - Rest Easy: Your files remain immutable and verifiable—today, tomorrow, or years down the line.
+        </p>
+    </div>
+
+    <!-- Step 1 Section (File + Maricopa) -->
+  <div class="shade-box">
+
+<h3>Step 1: Prepare Your Document</h3>
+    <p>
+  Choose the file you want to protect. Supported file types include:
+  <ul>
+    <li>PDF files (.pdf)</li>
+    <li>Text files (.txt)</li>
+    <li>Solidity source files (.sol)</li>
+    <li>Images (.jpg, .jpeg, .png)</li>
+    <li>Videos (.mp4)</li>
+    <!-- Add more types here if needed -->
+  </ul>
+  When you upload a file, it will be stored on IPFS (InterPlanetary File System), a decentralized storage network that distributes your file across many computers, ensuring it remains available and resistant to censorship. At the same time, a unique cryptographic hash is generated from the file’s contents. This hash acts as a digital fingerprint, guaranteeing the file’s integrity—any change to the file will result in a different hash, so you can later verify that the file hasn’t been tampered with.
+</p>
+    <!-- Updated File Input for multiple file types -->
+<input type="file" id="fileInput" accept=".pdf,.txt,.sol,.jpg,.jpeg,.png,.mp4" />
+
+    <p id="fileNameOutput"></p>
+
+</div>
+
+  <!-- This entire block is hidden by default -->
+<div id="maricopaSection" style="display:none;">
+  <h2>Maricopa Parcel Lookup and IPFS Integration</h2>
+  <p>
+    While MyLockChain is a worldwide platform for securing title deeds, we also offer a direct integration
+    with the Maricopa County Assessor's system in Arizona, USA. If you own property in Maricopa County,
+    you can enter your APN to retrieve detailed assessor records on your parcel—complete with valuations,
+    sketches, and official county document links.
+  </p>
+
+  <!-- 1) APN Lookup -->
+  <div>
+    <h3>Lookup a Parcel (APN)</h3>
+    <p>
+      <strong>What Is an APN?</strong> An APN (Assessor’s Parcel Number) is a unique code assigned by
+      the county assessor to identify each property. You can usually find your APN on your property tax
+      statement, deed paperwork, or online assessor records.
+    </p>
+    <p>
+      <em>Note:</em> If you do not have a Maricopa County APN, the direct lookup below will not apply.
+      However, you can still use MyLockChain to securely store and verify deeds from anywhere in the world,
+      just without the Maricopa integration.
+    </p>
+
+    <input type="text" id="apnInput" placeholder="e.g. 123-45-678" />
+    <button onclick="lookupParcel()">Lookup Parcel</button>
+    <div id="parcelActions" style="margin-top:10px; display:none;">
+      <button onclick="downloadParcelJSON()">Download JSON</button>
+      <button onclick="uploadParcelJSON()">Upload to IPFS</button>
+    </div>
+    <pre id="parcelResult"></pre>
+
+    <!-- Owner & Deed Info -->
+    <div id="ownerSection" style="display:none; margin-top:20px;">
+      <h3>Owner Details</h3>
+      <p><strong>Owner Name:</strong> <span id="ownerName"></span></p>
+      <p><strong>Deed Date:</strong> <span id="ownerDeedDate"></span></p>
+      <p><strong>Sale Price:</strong> <span id="ownerSalePrice"></span></p>
+      <p><strong>Sale Date:</strong> <span id="ownerSaleDate"></span></p>
+      <p>
+        <strong>View Deed:</strong>
+        <a id="viewDeedLink" href="#" target="_blank">Open Maricopa Recorder</a>
+      </p>
+    </div>
+
+	  <!-- New: Property Overview Section -->
+<div id="propertyOverview" style="display:none; margin-top:20px;">
+  <h3>Property Overview</h3>
+  <p><strong>Address:</strong> <span id="propertyAddress"></span></p>
+  <p><strong>Description:</strong> <span id="propertyDescription"></span></p>
+  <p><strong>Lot Size:</strong> <span id="lotSize"></span></p>
+  <p><strong>Section/Township/Range:</strong> <span id="sectionTownshipRange"></span></p>
+</div>
+
+<!-- New: Residential Property Data Section -->
+<div id="residentialData" style="display:none; margin-top:20px;">
+  <h3>Property Features</h3>
+  <p><strong>Construction Year:</strong> <span id="constructionYear"></span></p>
+  <p><strong>Livable Space:</strong> <span id="livableSpace"></span></p>
+  <p><strong>Number of Garages:</strong> <span id="numberOfGarages"></span></p>
+  <!-- Add additional fields as needed -->
+</div>
+
+<!-- New: Similar Properties Section -->
+<div id="similarParcels" style="display:none; margin-top:20px;">
+  <h3>Similar Properties</h3>
+  <table border="1" cellpadding="5" style="border-collapse: collapse; width: 100%;">
+    <thead>
+      <tr>
+        <th>Parcel</th>
+        <th>Land Size</th>
+        <th>Sales Price/Date</th>
+        <th>Full Cash Value</th>
+        <th>Livable SqFt</th>
+        <th>Construction Year</th>
+        <th>Situs Address</th>
+      </tr>
+    </thead>
+    <tbody id="similarParcelsBody"></tbody>
+  </table>
+</div>
+
+<!-- New: Maps and Official Documents Section -->
+<div id="mapIDs" style="display:none; margin-top:20px;">
+  <h3>Maps and Official Documents</h3>
+  <div id="parcelMaps">
+    <h4>Parcel Maps</h4>
+    <ul id="parcelMapsList"></ul>
+  </div>
+  <div id="subdivisionMaps">
+    <h4>Subdivision Maps</h4>
+    <ul id="subdivisionMapsList"></ul>
+  </div>
+  <div id="mcrMaps">
+    <h4>MCR Maps</h4>
+    <ul id="mcrMapsList"></ul>
+  </div>
+  <div id="bookMapMaps">
+    <h4>Book/Map Maps</h4>
+    <ul id="bookMapMapsList"></ul>
+  </div>
+</div>
+
+
+    <!-- Official County Links -->
+    <div id="countyLinksSection" style="display:none; margin-top:20px;">
+      <h3>Official County Links</h3>
+      <p>
+        <a id="mcrLink" href="#" target="_blank">Subdivision Map (MCR)</a> |
+        <a id="treasurerLink" href="#" target="_blank">Treasurer Tax Info</a>
+      </p>
+    </div>
+
+    <!-- Valuation Table or Chart -->
+    <div id="valuationSection" style="display:none; margin-top:20px;">
+      <h3>Valuations Over Time</h3>
+      <canvas id="valuationChart" width="400" height="200"></canvas>
+      <table id="valuationTable" border="1" cellpadding="5" style="border-collapse: collapse;">
+        <thead>
+          <tr>
+            <th>Tax Year</th>
+            <th>Full Cash Value</th>
+            <th>Limited Property Value</th>
+            <th>Legal Classification</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Sketch Image -->
+    <div id="sketchSection" style="display:none; margin-top:20px;">
+      <h3>Parcel Sketch</h3>
+      <img id="sketchImage" alt="Parcel Sketch" style="max-width:400px; border:1px solid #ccc;" />
+    </div>
+
+    <!-- Display the IPFS Hash after uploading -->
+    <div id="parcelIpfsHash" style="color:#1e429f; margin-top:10px;"></div>
+  </div>
+</div>
+
+
+  <!-- Step 2: Pin to IPFS -->
+<div class="shade-box">
+  <h3>Step 2: Pin Your Document on IPFS</h3>
+  <p>
+    <strong>Upload &amp; Hash Document.</strong><br/>
+    - Click “Upload &amp; Hash Document” to pin the file on IPFS.<br/>
+    - <strong>Pinning</strong> means we keep a copy of your file on IPFS indefinitely,
+      so it’s always available—even if your computer is offline.<br/>
+    - <em>Why?</em> Your document is now decentralized and tamper-evident—any change
+      produces a new IPFS hash, revealing any forgery.
+  </p>
+
+  <!-- 🌌 Background image section with overlay content -->
+  <div class="ipfs-section" style="background-image: url('/mylockchain-cosmos-logo.png');">
+    <h3>IPFS Document Storage</h3>
+    <p>Pinned across the Cosmos. Immutable. Permanent. Decentralized.</p>
+  </div>
+
+  <p>
+    <strong>Pinning Fees &amp; File Size Limits:</strong><br/>
+    - Files up to 0.5MB: <strong>$3</strong><br/>
+    - 0.5MB – 5MB: <strong>$5</strong><br/>
+    - 5MB – 20MB: <strong>$10</strong><br/>
+    - 20MB – 50MB: <strong>$15</strong><br/>
+    - <em>Note:</em> Files over 50MB aren’t allowed.
+  </p>
+
+  <p>
+    <em>Why Pin?</em> Without pinning, your file might be garbage-collected if no node
+    hosts it. Pinning ensures permanence in the decentralized network.
+  </p>
+
+  <!-- Upload and hash button -->
+  <button id="uploadBtn" onclick="handleFileAndPayment()">Upload and Hash Document</button>
+  <div id="paypal-button-container" style="display:none; margin-bottom:20px;"></div>
+  <p id="hashOutput"></p>
+</div>
+
+
+
+
+
+
+  <h3>Retrieve your document from the IPFS</h3>
+
+    <input type="text" id="retrieveHash" placeholder="Enter IPFS Hash" />
+    <button onclick="retrieveDocument()">Retrieve Document</button>
+    <a id="retrievedLink" href="#" target="_blank">Download Document</a>
+</div>
+
+
+</div> <!-- closes .container -->
+
+<!-- ✅ Start new container for Step 3 and Bonus -->
+<div class="container">
+<!-- Step 3: Save Your Transaction Receipt & IPFS Hash -->
+	  <div class="shade-box">
+<div style="margin-top:30px;">
+    <h3>Step 3: Save Your Transaction Receipt &amp; IPFS Hash</h3>
+    <p>
+      <strong>Keep Your Receipt &amp; Hash Safe.</strong><br/>
+      - You’ll get a transaction receipt with a unique transaction hash.<br/>
+      - Store it in a safe place. It proves exactly when your file was pinned and recorded on-chain.<br/>
+      - If you or anyone needs to verify authenticity later, just compare the file’s hash to the one on Mintscan.
+    </p>
+  </div>
+
+    <h3>Verify Title Deed</h3>
+    <button onclick="verifyDocument()">Verify Document</button>
+
+ </div>
+
+
+ <div class="shade-box" style="margin-top: 40px;">
+  <h3>Why Solana + Rust?</h3>
+<p>
+  In a world built on gas-guzzling blockchains and clunky scripting languages… 
+  <strong>MyLockChain V4</strong> takes a different approach — a production house of 
+  <strong>Anchor</strong> and <strong>Rust</strong>, starring the blazing speed of 
+  <strong>Solana</strong>.
+</p>
+<p>
+  Here’s why we’re rolling with this all-star cast:
+  <ul>
+    <li>✅ <strong>Solana’s Lightspeed Finality</strong> — transactions settle faster than you can say “Cut!”</li>
+    <li>✅ <strong>Lower Fees, Paid in Pure $SOL</strong> — your footage’s legacy shouldn’t cost a fortune</li>
+    <li>✅ <strong>Rust: The Director’s Cut of Security</strong> — bulletproof, memory-safe contracts</li>
+    <li>✅ <strong>Anchor: The Steady Cam of Smart Contracts</strong> — fast, low-latency, and designed for large reels</li>
+  </ul>
+</p>
+<p>
+  When you upload your evidence — from gritty body cam footage to full-length features — we convert your file’s 
+  digital fingerprint into <strong>base64</strong> format, perfect for <strong>Rust-based Solana contracts</strong>.
+</p>
+<p>
+  No middlemen. No missing scenes. Just the real, uncut truth — forever projected on Solana’s blockchain.
+</p>
+
+</div>
+
+
+	<!-- ⬇️ Collapsed UI Sections moved below Step 3 -->
+  <div class="shade-box">
+    <h3>Learn More</h3>
+    <p>Use the toggles below to explore how MyLockChain works and why IPFS matters.</p>
+    <button onclick="toggleSection('howToUseSection')">How to Use MyLockChain</button>
+    <div id="howToUseSection" style="display:none; margin-top:30px;"> ... </div>
+
+    <button onclick="toggleSection('whyStoreSection')">Why Store Documents on MyLockChain?</button>
+    <div id="whyStoreSection" class="hidden-section"> ... </div>
+
+    <button onclick="toggleSection('ipfsIntroSection')">Introducing IPFS</button>
+    <div id="ipfsIntroSection" class="hidden-section"> ... </div>
+  </div>
+
+ <!-- BONUS SECTION -->
+<div class="shade-box" style="margin-top: 60px; padding: 40px; border-radius: 12px; background-color: #f9f9f9;">
+  <h3 style="text-align: center;">Bonus: Lookup Your Arizona Parcel</h3>
+  <p style="text-align: center; max-width: 700px; margin: 0 auto 20px; font-size: 16px;">
+    If you own property in <strong>Maricopa County</strong>, you can securely look up your parcel, retrieve ownership and valuation data,
+    and pin the parcel's details to IPFS—all from within MyLockChain. This enhances the chain of custody for your real estate documentation.
+  </p>
+  <div style="text-align: center; margin-bottom: 30px;">
+    <button onclick="toggleSection('maricopaSection')" style="padding: 12px 24px; font-size: 16px; border-radius: 8px; background-color: #0074d9; color: white; border: none; cursor: pointer;">
+      🔍 Maricopa County Parcel Lookup
+    </button>
+  </div>
+
+  <hr style="margin: 40px auto; max-width: 500px; border: none; border-top: 1px solid #ccc;">
+
+  <h3 style="text-align: center;">Bonus: Try the Original Version</h3>
+  <p style="text-align: center; max-width: 700px; margin: 0 auto 20px; font-size: 16px;">
+    Prefer the original interface? You can still use <strong>MyLockChain v1</strong>, which requires MetaMask and manual transaction confirmation.
+    It's the same powerful engine—just with a wallet-based workflow.
+  </p>
+  <div style="text-align: center;">
+    <button
+      onclick="window.open('https://mytitlelock.netlify.app/', '_blank')"
+      style="padding: 12px 24px; font-size: 16px; border-radius: 8px; background-color: #f6851b; color: white; border: none; cursor: pointer;"
+    >
+      🔗 Pay with MetaMask (v1)
+    </button>
+  </div>
+</div>
+
+	 </div>
+</div> <!-- closes new container -->
+
+
+
+<!-- Spinner Overlay -->
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+    <p style="color: white; font-size: 20px; text-align: center;">
+        Processing... Please wait.
+    </p>
+</div>
+
+	<!-- Receipt display area for all flows -->
+<div id="receipt" style="display:none; background:#e6f7ff; border:2px solid #1e429f; padding:15px; border-radius:5px; margin-top:20px;">
+  <div id="receiptContent"></div>
+  <div id="qrCode" style="margin-top:10px;"></div>
+</div>
+
+
+
+
+<!-- verify button receipt -->
+<div id="verificationResult"></div>
+
+<div class="footer">
+&lt;p&gt;🛰️ A proud production rolling on Solana’s fast finality | Built with Anchor &amp; Rust 🎬&lt;/p&gt; &lt;p&gt;© 2025 MyLockChain. All Rights Reserved.&lt;/p&gt; </div>
+
+
+<script>
+    let web3;
+    let contract;
+    let account;
+    let hashHex;
+    let ipfsHash;
+    let selectedProvider;
+
+    let lastUploadedFileName = ''; // store the file name to show in receipt
+    let uploadCostUSD = 0;         // how much the user must pay based on file size
+    let fileToUpload = null;       // store the actual File object for reference
+
+    const MARICOPA_TOKEN = 'fd5916c7-4f5d-430a-9c9d-26af124e0833'; // your token
+    let currentParcelData = null;  // store the JSON result in memory
+    let currentParcelIpfsHash = null;
+
+
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (isMobile) {
+    document.getElementById('mobileWarning').style.display = 'block';
+  }
+});
+
+
+
+      // Toggles for Hidden Sections
+    function toggleSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  const isHidden = section.style.display === "none" || section.style.display === "";
+
+  section.style.display = isHidden ? "block" : "none";
+
+  // Only scroll into view if we're showing the section
+  if (isHidden) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+
+
+    // Loading Overlay
+  let overlayMessages = [
+  "🚀 Converting ATOMs into Neutrons (NTRN)...",
+  "🪐 Locking your title across the Cosmos...",
+  "📡 Broadcasting to Neutron validators...",
+  "🔒 Hash anchored in the Interchain...",
+  "🌌 Document stored beyond time and space..."
+];
+
+let overlayTypingIndex = 0;
+let typingTimer;
+let messageTimer;
+
+function typeText(element, text, i = 0, speed = 40, onComplete) {
+  if (i < text.length) {
+    element.innerText += text.charAt(i);
+    typingTimer = setTimeout(() => typeText(element, text, i + 1, speed, onComplete), speed);
+  } else if (onComplete) {
+    setTimeout(onComplete, 1500); // Pause before next message
+  }
+}
+
+function startOverlayTypingLoop() {
+  const overlayText = document.querySelector('#loadingOverlay p');
+  overlayText.innerText = '';
+
+  const currentMessage = overlayMessages[overlayTypingIndex];
+  typeText(overlayText, currentMessage, 0, 40, () => {
+    overlayTypingIndex = (overlayTypingIndex + 1) % overlayMessages.length;
+    overlayText.innerText = '';
+    messageTimer = setTimeout(startOverlayTypingLoop, 500); // Delay before typing next
+  });
+}
+
+function toggleLoadingOverlay(show) {
+  const overlay = document.getElementById('loadingOverlay');
+
+  if (show) {
+    overlay.style.visibility = 'visible';
+    overlay.style.opacity = '1';
+
+    overlayTypingIndex = 0;
+    clearTimeout(typingTimer);
+    clearTimeout(messageTimer);
+    startOverlayTypingLoop();
+  } else {
+    overlay.style.opacity = '0';
+    setTimeout(() => {
+      overlay.style.visibility = 'hidden';
+      const overlayText = overlay.querySelector('p');
+      overlayText.innerText = '';
+    }, 300);
+
+    clearTimeout(typingTimer);
+    clearTimeout(messageTimer);
+  }
+}
+
+
+
+async function registerWithPaypal() {
+  if (!hashHex || !ipfsHash) {
+    alert('❗ You must upload a file and hash it first (Step 2).');
+    return;
+  }
+
+  // Save hashes to global scope so PayPal callback can use them
+  window.documentHashHex = hashHex;
+  window.ipfsHash = ipfsHash;
+
+  const container = document.getElementById('paypalBlockchainContainer');
+  if (!container) {
+    console.error("Element with ID 'paypalBlockchainContainer' not found.");
+    alert('Error: PayPal container is missing from the page.');
+    return;
+  }
+
+  container.innerHTML = ''; // Clear previous buttons
+
+  paypal.Buttons({
+    createOrder: function (data, actions) {
+      return actions.order.create({
+        purchase_units: [{ amount: { value: '1.00' } }]
+      });
+    },
+    onApprove: async function (data, actions) {
+      try {
+        const details = await actions.order.capture();
+        alert('✅ Payment successful! Registering on-chain...');
+
+        if (typeof window.handlePostUploadSubmission === 'function') {
+          await window.handlePostUploadSubmission({
+            hashHex: window.documentHashHex,
+            ipfsHash: window.ipfsHash
+          });
+        } else {
+          console.warn("⚠️ Submission module not loaded yet.");
+          alert("Error: Submission module not loaded. Try again later.");
+        }
+      } catch (err) {
+        console.error('❌ Error during on-chain registration:', err);
+        alert('Blockchain registration failed: ' + err.message);
+      }
+    },
+    onCancel: function () {
+      alert('❌ Payment canceled.');
+    },
+    onError: function (err) {
+      console.error('❌ PayPal error:', err);
+      alert('PayPal payment failed.');
+    }
+  }).render('#paypalBlockchainContainer');
+}
+
+
+
+
+
+
+
+
+
+
+/*****************************************************************
+  1) LOOKUP PARCEL
+*****************************************************************/
+async function lookupParcel() {
+  const apn = document.getElementById('apnInput').value.trim();
+  if (!apn) {
+    alert('Please enter a valid APN (e.g. 123-45-678).');
+    return;
+  }
+
+  currentParcelData = null;
+  document.getElementById('parcelResult').textContent = '';
+  document.getElementById('parcelIpfsHash').textContent = '';
+  document.getElementById('parcelActions').style.display = 'none';
+
+  // Hide sections until we have valid data
+  document.getElementById('ownerSection').style.display = 'none';
+  document.getElementById('countyLinksSection').style.display = 'none';
+  document.getElementById('valuationSection').style.display = 'none';
+  document.getElementById('sketchSection').style.display = 'none';
+
+  try {
+    const url = `https://polar-stream-23993-43b80ccd3a73.herokuapp.com/maricopa/parcel?apn=${apn}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Proxy error: ${response.status} ${response.statusText}`);
+    }
+    const data = await response.json();
+
+    // 1) Display raw JSON for debugging
+    currentParcelData = data;
+    document.getElementById('parcelResult').textContent = JSON.stringify(data, null, 2);
+    document.getElementById('parcelActions').style.display = 'inline-block';
+
+    // 2) Parse & Display Owner Info
+    if (data.Owner) {
+      const ownerObj = data.Owner;
+      document.getElementById('ownerName').textContent = ownerObj.Ownership || 'N/A';
+      document.getElementById('ownerDeedDate').textContent = ownerObj.DeedDate || 'N/A';
+      document.getElementById('ownerSalePrice').textContent = ownerObj.SalePrice || 'N/A';
+      document.getElementById('ownerSaleDate').textContent = ownerObj.SaleDate || 'N/A';
+
+      // Link to official deed
+      if (data.DeedTransitionUrl) {
+        document.getElementById('viewDeedLink').href = data.DeedTransitionUrl;
+      }
+
+      document.getElementById('ownerSection').style.display = 'block';
+    }
+	  // --- New Section: Property Overview ---
+  if (data.PropertyAddress || data.PropertyDescription || data.LotSize || data.SectionTownshipRange) {
+    document.getElementById('propertyAddress').innerText = data.PropertyAddress || 'N/A';
+    document.getElementById('propertyDescription').innerText = data.PropertyDescription || 'N/A';
+    document.getElementById('lotSize').innerText = data.LotSize || 'N/A';
+    document.getElementById('sectionTownshipRange').innerText = data.SectionTownshipRange || 'N/A';
+    document.getElementById('propertyOverview').style.display = 'block';
+  }
+
+  // --- New Section: Residential Property Data ---
+  if (data.ResidentialPropertyData) {
+    const rpd = data.ResidentialPropertyData;
+    document.getElementById('constructionYear').innerText = rpd.ConstructionYear || 'N/A';
+    document.getElementById('livableSpace').innerText = rpd.LivableSpace || 'N/A';
+    document.getElementById('numberOfGarages').innerText = rpd.NumberOfGarages || 'N/A';
+    document.getElementById('residentialData').style.display = 'block';
+  }
+
+  // --- New Section: Similar Parcels ---
+  if (data.SimilarParcels && data.SimilarParcels.length > 0) {
+    const tbody = document.getElementById('similarParcelsBody');
+    tbody.innerHTML = ''; // Clear any existing rows
+    data.SimilarParcels.forEach(parcel => {
+      const tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>' + (parcel.Parcel || 'N/A') + '</td>' +
+        '<td>' + (parcel.LandSize || 'N/A') + '</td>' +
+        '<td>' + (parcel.SalesPriceDate || 'N/A') + '</td>' +
+        '<td>' + (parcel.FullCashValue || 'N/A') + '</td>' +
+        '<td>' + (parcel.LivableSqFootage || 'N/A') + '</td>' +
+        '<td>' + (parcel.ConstructionYear || 'N/A') + '</td>' +
+        '<td>' + (parcel.SitusAddress || 'N/A') + '</td>';
+      tbody.appendChild(tr);
+    });
+    document.getElementById('similarParcels').style.display = 'block';
+  }
+
+  // --- New Section: MapIDs Information ---
+  if (data.MapIDs) {
+    // Function to populate a list given a key in MapIDs and an element ID for the list
+    function populateMapList(mapKey, listId) {
+      if (data.MapIDs[mapKey] && data.MapIDs[mapKey].length > 0) {
+        const list = document.getElementById(listId);
+        list.innerHTML = '';
+        data.MapIDs[mapKey].forEach(mapItem => {
+          const li = document.createElement('li');
+          li.innerHTML = '<a href="' + mapItem.Url + '" target="_blank">' +
+            mapItem.FileName + ' (Updated: ' + mapItem.UpdateDate + ')</a>';
+          list.appendChild(li);
+        });
+      }
+    }
+    populateMapList("Parcel Maps", "parcelMapsList");
+    populateMapList("Subdivision Maps", "subdivisionMapsList");
+    populateMapList("MCR Maps", "mcrMapsList");
+    populateMapList("Book/Map Maps", "bookMapMapsList");
+    document.getElementById('mapIDs').style.display = 'block';
+  }
+
+    // 3) Official County Links
+    if (data.McrTransitionUrl || data.TreasurersTransitionUrl) {
+      if (data.McrTransitionUrl) {
+        document.getElementById('mcrLink').href = data.McrTransitionUrl;
+      }
+      if (data.TreasurersTransitionUrl) {
+        document.getElementById('treasurerLink').href = data.TreasurersTransitionUrl;
+      }
+      document.getElementById('countyLinksSection').style.display = 'block';
+    }
+
+    // 4) Valuations
+    if (Array.isArray(data.Valuations) && data.Valuations.length > 0) {
+      const tbody = document.querySelector('#valuationTable tbody');
+      tbody.innerHTML = ''; // clear any old rows
+
+      data.Valuations.forEach(val => {
+        const tr = document.createElement('tr');
+        // TaxYear, FullCashValue, LimitedPropertyValue, LegalClassification
+        const tdYear = document.createElement('td');
+        tdYear.textContent = val.TaxYear || 'N/A';
+        const tdFCV = document.createElement('td');
+        tdFCV.textContent = val.FullCashValue || 'N/A';
+        const tdLPV = document.createElement('td');
+        tdLPV.textContent = val.LimitedPropertyValue || 'N/A';
+        const tdClass = document.createElement('td');
+        tdClass.textContent = val.LegalClassification || 'N/A';
+
+        tr.appendChild(tdYear);
+        tr.appendChild(tdFCV);
+        tr.appendChild(tdLPV);
+        tr.appendChild(tdClass);
+        tbody.appendChild(tr);
+      });
+
+     // Now show the section
+  document.getElementById('valuationSection').style.display = 'block';
+
+  // Build arrays for the chart
+  const years = data.Valuations.map(v => v.TaxYear);
+  // Convert FullCashValue to a numeric type (default to 0 if missing)
+  const fcvValues = data.Valuations.map(v => parseInt(v.FullCashValue || '0', 10));
+
+  // Create the chart
+  const ctx = document.getElementById('valuationChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Full Cash Value',
+        data: fcvValues,
+        backgroundColor: 'rgba(30, 66, 159, 0.2)',
+        borderColor: 'rgba(30, 66, 159, 1)',
+        borderWidth: 2,
+        fill: true,
+      }]
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+}
+
+    // 5) Parcel Sketch
+    // The JSON you provided has "Sketches.Pages[0].Sketch" as a Base64 PNG
+    if (data.Sketches && data.Sketches.Pages && data.Sketches.Pages.length > 0) {
+      const base64Sketch = data.Sketches.Pages[0].Sketch;
+      if (base64Sketch) {
+        const sketchImageEl = document.getElementById('sketchImage');
+        // Turn the base64 into a data URI for an <img>
+        sketchImageEl.src = `data:image/png;base64,${base64Sketch}`;
+        document.getElementById('sketchSection').style.display = 'block';
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Error fetching parcel data. Check console for details.');
+  }
+}
+
+
+
+/*****************************************************************
+  2) DOWNLOAD PARCEL JSON
+*****************************************************************/
+function downloadParcelJSON() {
+  if (!currentParcelData) {
+    alert('No parcel data to download. Lookup an APN first.');
+    return;
+  }
+
+  // Convert to JSON string
+  const jsonStr = JSON.stringify(currentParcelData, null, 2);
+  const blob = new Blob([jsonStr], { type: 'application/json' });
+
+  // create a temporary link
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'parcel-data.json';
+  link.click();
+
+  // clean up
+  URL.revokeObjectURL(url);
+}
+
+/*****************************************************************
+  3) UPLOAD PARCEL JSON TO IPFS
+     (Using your existing IPFS server endpoint, etc.)
+*****************************************************************/
+async function uploadParcelJSON() {
+  if (!currentParcelData) {
+    alert('No parcel data found. Please lookup an APN first.');
+    return;
+  }
+
+  // Convert data to a file-like object (Blob)
+  const jsonStr = JSON.stringify(currentParcelData, null, 2);
+  const blob = new Blob([jsonStr], { type: 'application/json' });
+
+  // create FormData & append
+  const formData = new FormData();
+  formData.append('file', blob, 'parcel-data.json');
+
+  // send to your IPFS endpoint
+  // e.g. 'https://polar-stream-23993-43b80ccd3a73.herokuapp.com/upload'
+  // or wherever your existing code references
+  try {
+    const response = await fetch('https://polar-stream-23993-43b80ccd3a73.herokuapp.com/upload', {
+      method: 'POST',
+      body: formData
+    });
+    if (!response.ok) {
+      throw new Error('Failed to upload JSON to IPFS server.');
+    }
+    const result = await response.json();
+
+    // result should have something like { IpfsHash: 'QmXYZ...' }
+    currentParcelIpfsHash = result.IpfsHash;
+    document.getElementById('parcelIpfsHash').textContent =
+      `Parcel data uploaded to IPFS! Hash: ${currentParcelIpfsHash}`;
+
+    // from here, you can let them "Register on Blockchain" if you want,
+    // or tie it into your existing code that registers a hash on chain.
+  } catch (error) {
+    console.error(error);
+    alert('Error uploading parcel JSON to IPFS. See console for details.');
+  }
+}
+
+
+
+	// 💲 Updated Fee Logic: Start charging $1 for the lowest tier
+	function determineFeeBySize(fileSizeBytes) {
+		const sizeMB = fileSizeBytes / (1024 * 1024);
+		if (sizeMB > 50) {
+			alert('File too large! Max limit is 50 MB.');
+			return -1;
+		}
+		if (sizeMB <= 0.5) {
+			return .1; // previously 0, now $.1
+		} else if (sizeMB <= 5) {
+			return 5;
+		} else if (sizeMB <= 20) {
+			return 10;
+		} else {
+			return 15;
+		}
+	}
+    // Step 2: Called when user clicks "Upload and Hash Document"
+async function handleFileAndPayment() {
+    const fileInput = document.getElementById('fileInput');
+    const selectedFile = fileInput.files[0];
+    if (!selectedFile) {
+        alert('Please select a PDF file first.');
+        return;
+    }
+
+    // Check the size + fee
+    const fee = determineFeeBySize(selectedFile.size);
+    if (fee < 0) return; // invalid file
+
+    fileToUpload = selectedFile;    // store globally
+    uploadCostUSD = fee;           // store the cost
+
+    // Show the file name
+    lastUploadedFileName = selectedFile.name;
+    document.getElementById('fileNameOutput').innerText = `File Name: ${selectedFile.name}`;
+
+
+    // Decide payment or free upload
+    if (fee === 0) {
+        await uploadToIPFS(); // no payment needed
+    } else {
+        showPayPalButton(fee); // show PayPal
+    }
+}
+
+ // 💳 Updated PayPal UI call (ensures uploadToIPFS gets triggered only after payment)
+function showPayPalButton(amountUSD) {
+    const paypalContainer = document.getElementById('paypal-button-container');
+    paypalContainer.style.display = 'block';
+    paypalContainer.innerHTML = '';
+
+    paypal.Buttons({
+        style: {
+            layout: 'vertical',
+            color: 'gold',
+            shape: 'pill',
+            label: 'paypal'
+        },
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: { value: amountUSD.toString() }
+                }]
+            });
+        },
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(async function (details) {
+                paypalContainer.style.display = 'none';
+                alert('Payment successful! Uploading file to IPFS...');
+                await uploadToIPFS();
+            });
+        },
+        onCancel: function () {
+            alert('Payment canceled.');
+        },
+        onError: function (err) {
+            console.error('PayPal error:', err);
+            alert('An error occurred with PayPal. Check console for details.');
+        }
+    }).render('#paypal-button-container');
+}
+
+
+
+ // Updated uploadToIPFS function with auto ERC-4337 submission after PayPal
+async function uploadToIPFS() {
+  if (!fileToUpload) {
+    alert('No file is selected. Please select a file first.');
+    return;
+  }
+
+  toggleLoadingOverlay(true);
+
+  try {
+    // STEP 1: Compute SHA-256 Hash
+    const arrayBuffer = await fileToUpload.arrayBuffer();
+    const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    hashHex = '0x' + hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+    // STEP 2: Upload to IPFS
+    const formData = new FormData();
+    formData.append('file', fileToUpload);
+
+    const response = await fetch(
+      'https://polar-stream-23993-43b80ccd3a73.herokuapp.com/upload',
+      { method: 'POST', body: formData }
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to upload file to server.');
+    }
+
+    const data = await response.json();
+    ipfsHash = data.IpfsHash;
+
+    const hashOutputEl = document.getElementById('hashOutput');
+    if (hashOutputEl) {
+      hashOutputEl.innerText = `IPFS Hash: ${ipfsHash}`;
+    }
+
+    alert(`✅ Upload complete! Your document was pinned on IPFS.\n\nIPFS Hash: ${ipfsHash}`);
+    document.getElementById('retrieveHash').value = ipfsHash;
+
+    // 👇 Automatically register the hash on-chain using sponsored backend flow
+    if (window.handlePostUploadSubmission) {
+      await window.handlePostUploadSubmission({
+        hashHex,
+        ipfsHash,
+        fileName: fileToUpload?.name || "(unknown)"
+      });
+
+
+    }
+
+  } catch (error) {
+    console.error('Error uploading file:', error);
+    alert('❌ Failed to upload file. Please try again.');
+  } finally {
+    toggleLoadingOverlay(false);
+  }
+}
+
+// 4) Register Hash on Blockchain
+async function registerHashOnCosmos() {
+  if (!hashHex || !ipfsHash) {
+    alert('Hash or IPFS data missing.');
+    return;
+  }
+
+  toggleLoadingOverlay(true);
+
+  try {
+    const res = await fetch('https://mylockchaincosmos-85ea963ef0ae.herokuapp.com/registerHash', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        hashHex,
+        ipfsHash,
+        fileName: lastUploadedFileName
+      })
+    });
+
+    const result = await res.json();
+
+    if (result.success && result.txHash) {
+      const ipfsLink = `https://gateway.pinata.cloud/ipfs/${ipfsHash}`;
+      const base64 = btoa(
+        hashHex.startsWith('0x')
+          ? hashHex.slice(2).match(/.{1,2}/g).map(b => String.fromCharCode(parseInt(b, 16))).join('')
+          : ''
+      );
+
+      const readableTime = new Date(result.timestamp * 1000).toLocaleString();
+const contractExplorerUrl = `https://www.mintscan.io/neutron/address/${CONTRACT_ADDRESS}`;
+const transactionExplorerUrl = `https://www.mintscan.io/neutron/txs/${result.txHash}`;
+
+const receiptHTML = `
+  <h2>📄 Your LockChainCosmos Registration Receipt</h2>
+
+  <p><strong>🚀 File Name:</strong> ${lastUploadedFileName}<br/>
+  <em>The title of your cosmic satellite — the original filename that launched this journey.</em></p>
+
+  <p><strong>🛰️ IPFS CID:</strong> ${ipfsHash}<br/>
+  <em>This is your satellite’s interplanetary fingerprint — the IPFS Content Identifier that ensures it never drifts from orbit.</em></p>
+
+  <p><strong>🔗 Retrieve Link:</strong> <a href="${ipfsLink}" target="_blank">${ipfsLink}</a><br/>
+  <em>Beam it back from the InterPlanetary File System any time. Your document is now decentralized and always retrievable.</em></p>
+
+  <p><strong>🧬 Document Hash (Hex):</strong> ${hashHex}<br/>
+  <em>This hex string is your file’s cryptographic DNA — a tamper-proof proof-of-existence forged at the edge of the Interchain.</em></p>
+
+  <p><strong>📦 Base64 Format:</strong> ${base64}<br/>
+  <em>This is how your file’s essence travels through the Cosmos. CosmWasm contracts speak Base64 — it’s the lingua franca of smart contracts on Neutron.</em></p>
+
+  <p><em>💡 Note:</em> CosmWasm requires base64-encoded input for binary data. That’s how we store your digital footprint in orbit.</p>
+
+  <p><strong>👤 Registered By:</strong> ${result.registrant || 'n/a'}<br/>
+  <em>This is the identity that signed your cosmic ledger — the wallet that etched your hash into the stars.</em></p>
+
+  <p><strong>🕰️ Timestamp:</strong> ${readableTime}<br/>
+  <em>Temporal coordinates of your launch — the precise Earth time your document entered the blockchain constellations.</em></p>
+
+  <p><strong>📡 Contract:</strong> <a href="${contractExplorerUrl}" target="_blank">View on Neutron Explorer</a><br/>
+  <em>This smart contract is your ground station — it holds the registration beacon forever on the Neutron chain.</em></p>
+
+  <p><strong>💫 Transaction:</strong> <a href="${transactionExplorerUrl}" target="_blank">${result.txHash}</a><br/>
+  <em>The rocket that carried your hash into orbit. This transaction is your immutable trail across the Cosmos.</em></p>
+`;
+
+      document.getElementById('receiptContent').innerHTML = receiptHTML;
+      document.getElementById('receipt').style.display = 'block';
+
+      new QRCode(document.getElementById('qrCode'), ipfsLink);
+
+      setTimeout(() => {
+        document.getElementById('receipt').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    } else {
+      alert('❌ Cosmos registration failed: ' + result.error);
+    }
+  } catch (err) {
+    console.error(err);
+    alert('❌ Cosmos registration error.');
+  } finally {
+    toggleLoadingOverlay(false);
+  }
+}
+
+
+
+/*
+    // 5) Generate Receipt
+    function generateReceipt({
+        fileName,
+        ipfsHash,
+        docHash,
+        account,
+        transactionHash,
+        dateTime,
+        ipfsLink
+    }) {
+        const receiptContentElement = document.getElementById('receiptContent');
+        const qrCodeElement = document.getElementById('qrCode');
+
+        // Clear previous QR code
+        qrCodeElement.innerHTML = '';
+
+        const receiptHTML = `
+            <strong>File Name:</strong> ${lastUploadedFileName}<br>
+            <strong>IPFS Hash:</strong> ${ipfsHash}<br>
+            <strong>Document Hash (SHA-256):</strong> ${docHash}<br>
+            <strong>Registered By:</strong> ${account}<br>
+            <strong>Date and Time:</strong> ${dateTime}<br>
+            <strong>Transaction Hash:</strong>
+              <a href="https://bundler.pimlico.io/userOpHash/${txHash}?chainId=42161" target="_blank">${txHash}</a>
+
+        `;
+
+        receiptContentElement.innerHTML = receiptHTML;
+        document.getElementById('receipt').style.display = 'block';
+
+        // Generate QR code for IPFS retrieval link
+        new QRCode(qrCodeElement, {
+            text: ipfsLink,
+            width: 128,
+            height: 128,
+        });
+    }
+        */
+
+    // 6) Verify Document (no change)
+// Updated receipt generation for Cosmos transaction link
+async function verifyDocument() {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = '.pdf,.txt,.sol,.jpg,.jpeg,.png,.mp4';
+
+  fileInput.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      alert('No file selected.');
+      return;
+    }
+
+    const arrayBuffer = await file.arrayBuffer();
+    const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHexToVerify = '0x' + hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+    try {
+      const response = await fetch('https://mylockchaincosmos-85ea963ef0ae.herokuapp.com/checkRegistration', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ hashHex: hashHexToVerify })
+      });
+
+      const data = await response.json();
+
+      if (data.isRegistered) {
+        const receiptHTML = `
+📜 Document Registration Receipt
+───────────────────────────────
+✅ Status: Registered on Blockchain
+📄 File Name: ${file.name}
+🧾 File Hash: ${hashHexToVerify}
+👤 Registrant: ${data.registrant}
+⏰ Timestamp: ${new Date(data.timestamp * 1000).toLocaleString()}
+🔗 Transaction Hash: <a href="https://www.mintscan.io/neutron/txs/${data.txHash}" target="_blank">${data.txHash}</a>
+        `.trim();
+
+        // Display the receipt in the UI
+        const receiptDiv = document.createElement('div');
+        receiptDiv.style.whiteSpace = 'pre-wrap';
+        receiptDiv.style.marginTop = '20px';
+        receiptDiv.style.padding = '15px';
+        receiptDiv.style.border = '1px solid #ccc';
+        receiptDiv.style.borderRadius = '8px';
+        receiptDiv.style.background = '#f9f9f9';
+        receiptDiv.textContent = receiptHTML;
+
+        document.body.appendChild(receiptDiv);
+
+        // Auto-scroll to the receipt
+        setTimeout(() => {
+          receiptDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+
+      } else {
+        alert('❌ Document is not registered on the blockchain.');
+      }
+
+    } catch (error) {
+      console.error('Error verifying document:', error);
+      alert('⚠️ Error verifying document. See console for details.');
+    }
+  };
+
+  fileInput.click();
+}
+
+
+
+
+
+
+    // 10) Retrieve from IPFS (no change)
+    async function retrieveDocument() {
+        const ipfsHashVal = document.getElementById('retrieveHash').value.trim();
+        if (!ipfsHashVal) {
+            alert('Please enter an IPFS hash.');
+            return;
+        }
+        const ipfsGatewayURL = `https://gateway.pinata.cloud/ipfs/${ipfsHashVal}`;
+        const linkElement = document.getElementById('retrievedLink');
+
+        try {
+            const response = await fetch(ipfsGatewayURL, { method: 'HEAD' });
+            if (response.ok) {
+                linkElement.href = ipfsGatewayURL;
+                linkElement.style.display = 'block';
+                linkElement.innerText = 'Download Document';
+            } else {
+                alert('The document is not available on IPFS.');
+            }
+        } catch (error) {
+            console.error('Error retrieving document:', error);
+            alert('Failed to retrieve document. See console for details.');
+        }
+    }
+
+
+// 1) Make sure this matches your Cosmos API (Heroku) URL.
+  const API_BASE_URL = "https://mylockchaincosmos-85ea963ef0ae.herokuapp.com";
+
+  async function loadConfig() {
+    try {
+      const resp = await fetch(`${API_BASE_URL}/config`, {
+        method: "GET",
+        mode: "cors",                // <-- tell the browser to do CORS
+        headers: { "Content-Type": "application/json" }
+      });
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+      const { COSMOS_CONFIG } = await resp.json();
+      window.COSMOS_CONFIG = COSMOS_CONFIG;
+      console.log("✅ Loaded Cosmos Config:", COSMOS_CONFIG);
+
+      // Now you can pull out CONTRACT_ADDRESS, CHAIN_ID, etc:
+      const { CONTRACT_ADDRESS, CHAIN_ID, RPC, GAS_DENOM, FEE_AMOUNT } = COSMOS_CONFIG;
+      // …and use them in your Cosmos calls…
+
+      // (Optional) show in the UI, if you have an element with this id:
+      const el = document.getElementById("contractAddressDisplay");
+      if (el) el.innerText = `Cosmos Contract: ${CONTRACT_ADDRESS}`;
+
+    } catch (err) {
+      console.error("❌ Failed to load config:", err);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+  loadConfig();
+
+  // ✅ Auto-scroll to upload button when file is selected
+  document.getElementById('fileInput').addEventListener('change', function () {
+    const uploadBtn = document.getElementById("uploadBtn");
+    if (uploadBtn) {
+      setTimeout(() => {
+        console.log("📦 File selected. Scrolling to uploadBtn...");
+        uploadBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        uploadBtn.classList.remove("pulse-once");
+        void uploadBtn.offsetWidth;
+        uploadBtn.classList.add("pulse-once");
+      }, 300);
+    }
+  });
+});
+
+
+	</script>
+
+
+
+
+
+</body>
+</html>
