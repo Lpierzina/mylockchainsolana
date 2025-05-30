@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🎬 MyLockChain Solana
 
 **Blockbuster File Security via the Solana Blockchain**
