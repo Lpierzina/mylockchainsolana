@@ -47,31 +47,27 @@
 
   <style>
     body {
-    background: #212121;
-    color: #fff8e1;
-    font-family: 'Shrikhand', cursive; /* 70’s vibe */
-    padding: 20px;
-  }
-  .navbar, .wallet-background-section, .ipfs-section {
   background: url('/70sImage.png') no-repeat center center;
   background-size: cover;
-  position: relative;
-  color: #fff;
+  color: #fff8e1;
+  font-family: 'Cooper Black', serif;
+  padding: 20px;
 }
 
-.navbar::before, .wallet-background-section::before, .ipfs-section::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 0;
+.navbar {
+  background: linear-gradient(135deg, #6b4226, #d2691e);
+  color: #fff;
+  padding: 20px;
   border-radius: 5px;
+  position: relative;
 }
-.navbar h1, .navbar p {
+
+.navbar h1,
+.navbar p {
   position: relative;
   z-index: 1;
 }
+
 
     .container {
       max-width: 900px;
