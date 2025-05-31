@@ -17,6 +17,7 @@ const provider = new anchor.AnchorProvider(connection, wallet, {});
 const idl = require("./target/idl/mylockchain_solana.json");
 const program = new anchor.Program(idl, programId, provider);
 
+
 app.post("/solanaSubmitDocument", async (req, res) => {
   try {
     const { documentHash } = req.body;
