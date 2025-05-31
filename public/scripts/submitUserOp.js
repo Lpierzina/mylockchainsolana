@@ -10,6 +10,11 @@ window.handlePostUploadSubmission = async function ({ hashHex, ipfsHash, fileNam
       body: JSON.stringify({ hashHex, ipfsHash, fileName }),
     });
 
+
+    
+
+
+
     const { transactionHash } = await solanaRes.json();
     const txLink = `https://solscan.io/tx/${transactionHash}`;
 
