@@ -41,7 +41,10 @@
   <!-- PayPal SDK -->
   <script src="https://www.paypal.com/sdk/js?client-id=AdY2bGMmaWQUKSvI86C3N6nMvblKzy17YWggWvPeCv9hwIyVdjTGnLj8xrOkLxaXD9xUgV9yWRexdujU&currency=USD"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Cooper+Black&display=swap" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css2?family=Cooper+Black&display=swap" rel="stylesheet"> -->
+
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+
 
 
 
@@ -91,21 +94,27 @@
   line-height: 1.6;
   color: #333; /* <-- Darker text for better contrast */
 }
-h1 {
-    font-size: 2.5em;
-    color: #ff6f00;
-    text-shadow: 2px 2px #000;
-    margin-bottom: 0;
-  }
-	  
-	   p {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-top: 5px;
-  }
-	h1, h2, h3 {
+h1, h2, h3 {
   font-family: 'Cooper Black', serif;
-  text-shadow: 2px 2px #000;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.4); /* Subtle shadow */
+}
+
+h1 {
+  font-size: 2.6em;
+  color: #FF8C00;
+}
+
+h2, h3 {
+  font-size: 1.8em;
+  color: #DAA520;
+}
+
+.typing-script {
+  font-family: 'Special Elite', cursive;
+  font-size: 1.2em;
+  line-height: 1.5;
+  white-space: pre-wrap; /* Preserves whitespace formatting */
+  color: #222;
 }
 
 h1 {
@@ -494,23 +503,9 @@ h2, h3 {
   </header>
 
   <section class="intro">
-    <p>In a world where the truth is buried…</p>
-    <p>Where reels are edited, scenes go missing, and the chain of custody breaks under pressure…</p>
-    <p><strong>One protocol answers the call.</strong></p>
+  <div id="typedIntro" class="typing-script"></div>
+</section>
 
-    <p><strong>MyLockChain Solana</strong> is here — a decentralized archive forged for the big screen and the cold case file alike.</p>
-
-    <ul>
-      <li>Hashed. Pinned. Immutable. Permanent.</li>
-      <li>Stored via IPFS, anchored to Solana, sealed with the speed of Anchor + Rust.</li>
-    </ul>
-
-    <p>Crime scene videos. Legal depositions. Studio dailies. Evidence reels.</p>
-    <p><em>No edits. No erasures. No “missing footage.”</em></p>
-
-    <p>File by file, frame by frame — we lock down the truth.</p>
-    <p><strong>You don’t need a wallet. Just a file and a timestamp.</strong></p>
-  </section>
 
   <!-- "How to Use" button + hidden 6 steps -->
   <button onclick="toggleSection('howToUseSection')">How to Use MyLockChain</button>
@@ -1046,6 +1041,43 @@ while its hash blasts off to Neutron’s smart contract layer for permanent regi
     let currentParcelData = null;  // store the JSON result in memory
     let currentParcelIpfsHash = null;
 
+document.addEventListener('DOMContentLoaded', function () {
+  const textToType = `
+In a world where the truth is buried…
+
+Where reels are edited, scenes go missing, and the chain of custody breaks under pressure…
+
+One protocol answers the call.
+
+MyLockChain Solana is here — a decentralized archive forged for the big screen and the cold case file alike.
+
+Hashed. Pinned. Immutable. Permanent.
+Stored via IPFS, anchored to Solana, sealed with the speed of Anchor + Rust.
+
+Crime scene videos. Legal depositions. Studio dailies. Evidence reels.
+
+No edits. No erasures. No “missing footage.”
+
+File by file, frame by frame — we lock down the truth.
+
+You don’t need a wallet. Just a file and a timestamp.
+  `.trim();
+
+  const typedElement = document.getElementById('typedIntro');
+  const typingSpeed = 50; // Milliseconds per character
+
+  let index = 0;
+
+  function typeCharacter() {
+    if (index < textToType.length) {
+      typedElement.innerHTML += textToType.charAt(index);
+      index++;
+      setTimeout(typeCharacter, typingSpeed);
+    }
+  }
+
+  typeCharacter();
+});
 
 
 
