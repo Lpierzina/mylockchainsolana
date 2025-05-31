@@ -2,7 +2,7 @@
 
 **Blockbuster File Security via the Solana Blockchain**
 
-![MyLockChain Solana 70s Theme](./mylockchain-70s-poster.png)
+![MyLockChain Solana 70s Theme](./public/mylockchain-70s-poster.png)
 
 ---
 
