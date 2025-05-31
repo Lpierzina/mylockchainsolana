@@ -59,12 +59,15 @@
 
 
 .navbar {
-  background: linear-gradient(135deg, #6b4226, #d2691e);
+  background: linear-gradient(135deg, rgba(107,66,38,0.8), rgba(210,105,30,0.8));
   color: #fff;
   padding: 20px;
   border-radius: 5px;
   position: relative;
+  backdrop-filter: blur(5px); /* subtle blur behind navbar */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
+
 
 .navbar h1,
 .navbar p {
@@ -100,13 +103,20 @@ h1 {
     font-weight: bold;
     margin-top: 5px;
   }
-	h1, p {
+	h1, h2, h3 {
   font-family: 'Cooper Black', serif;
-  }  
-	  
-    h2, h3 {
-      color: #1e429f;
-    }
+  text-shadow: 2px 2px #000;
+}
+
+h1 {
+  font-size: 2.8em;
+  color: #FF8C00; /* vibrant orange */
+}
+
+h2, h3 {
+  color: #DAA520; /* golden yellow */
+}
+
     button {
 	  background-color: #1e429f;
 	  color: white;
@@ -859,7 +869,7 @@ while its hash blasts off to Neutron’s smart contract layer for permanent regi
   </p>
 
   <!-- 🌌 Background image section with overlay content -->
-  <div class="ipfs-section" style="background-image: url('/70sImage.png.png');">
+  <div class="ipfs-section" style="background-image: url('/70sImage.png');">
     <h3>IPFS Document Storage</h3>
     <p>Pinned across the Cosmos. Immutable. Permanent. Decentralized.</p>
   </div>
