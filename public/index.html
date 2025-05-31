@@ -443,29 +443,90 @@ h2, h3 {
       100% { transform: rotate(360deg); }
     }
    /* Media Query for Mobile */
-    @media (max-width: 768px) {
-      .container {
-        width: auto;
-        margin: 10px;
-        box-shadow: none;
-        border-radius: 0;
-        padding: 15px;
-      }
-      .navbar {
-        padding: 10px;
-      }
-      .navbar h1 {
-        font-size: 20px;
-      }
-      button {
-        width: 100%;
-        margin-bottom: 10px;
-      }
-    input[type="file"] {
-    max-width: 250px;
-    display: inline-block;
+   @media (max-width: 768px) {
+  body {
+    padding: 10px;
   }
-    }
+
+  h1, h2, h3 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+
+  .navbar {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .navbar h1 {
+    font-size: 1.8em;
+  }
+
+  .navbar p {
+    font-size: 12px;
+  }
+
+  .container, .shade-box {
+    padding: 15px;
+    margin: 10px auto;
+    border-radius: 5px;
+  }
+
+  button {
+    padding: 10px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  input[type="file"], input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .ipfs-section, .wallet-background-section, .step-image-section {
+    height: 120px;
+  }
+
+  .ipfs-section h3, .ipfs-section p,
+  .wallet-background-section h3, .step-image-section h3 {
+    font-size: 1.2em;
+  }
+
+  #loadingOverlay p {
+    font-size: 16px;
+  }
+
+  #receipt, #receiptContent {
+    font-size: 14px;
+  }
+
+  .typing-script {
+    font-size: 1em;
+    padding: 10px;
+  }
+
+  #paypal-button-container {
+    width: 100%;
+  }
+
+  #fileInput, #uploadBtn {
+    font-size: 14px;
+    padding: 8px;
+    margin-top: 10px;
+  }
+
+  ul, li {
+    font-size: 14px;
+    padding-left: 20px;
+  }
+
+  #hashOutput, #parcelResult, #parcelIpfsHash {
+    font-size: 0.9em;
+    word-break: break-all;
+  }
+}
+
 
 
     /* 🔧 Dim the PayPal fallback overlay if popup fails */
