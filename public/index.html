@@ -1003,8 +1003,8 @@ while its hash blasts off to Neutron’s smart contract layer for permanent regi
   </ul>
 </p>
 <p>
-  When you upload your evidence — from gritty body cam footage to full-length features — we convert your file’s 
-  digital fingerprint into <strong>base64</strong> format, perfect for <strong>Rust-based Solana contracts</strong>.
+  When you upload your evidence — from gritty body cam footage to full-length features — we convert your files into 
+  <strong> SHA-256 digital fingerprints</strong>, perfect for <strong>Rust-based Solana contracts</strong>.
 </p>
 <p>
   No middlemen. No missing scenes. Just the real, uncut truth — forever projected on Solana’s blockchain.
@@ -1696,17 +1696,17 @@ async function uploadToIPFS() {
   }
 }
 
-// 4) Register Hash on Blockchain
-async function registerHashOnCosmos() {
+// 4) Register Hash on Blockchain (Solana Version)
+async function registerHashOnSolana() {
   if (!hashHex || !ipfsHash) {
-    alert('Hash or IPFS data missing.');
+    alert('Whoa! Looks like your hash or IPFS data is missing.');
     return;
   }
 
   toggleLoadingOverlay(true);
 
   try {
-    const res = await fetch('https://mylockchaincosmos-85ea963ef0ae.herokuapp.com/registerHash', {
+    const response = await fetch('https://your-heroku-server.com/solanaSubmitDocument', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1716,52 +1716,43 @@ async function registerHashOnCosmos() {
       })
     });
 
-    const result = await res.json();
+    const result = await response.json();
 
-    if (result.success && result.txHash) {
+    if (result.success && result.transactionHash) {
       const ipfsLink = `https://gateway.pinata.cloud/ipfs/${ipfsHash}`;
-      const base64 = btoa(
-        hashHex.startsWith('0x')
-          ? hashHex.slice(2).match(/.{1,2}/g).map(b => String.fromCharCode(parseInt(b, 16))).join('')
-          : ''
-      );
+      const readableTime = new Date().toLocaleString();
+      const contractExplorerUrl = `https://solscan.io/account/${YOUR_SOLANA_PROGRAM_ID}`;
+      const transactionExplorerUrl = `https://solscan.io/tx/${result.transactionHash}`;
 
-      const readableTime = new Date(result.timestamp * 1000).toLocaleString();
-const contractExplorerUrl = `https://www.mintscan.io/neutron/address/${CONTRACT_ADDRESS}`;
-const transactionExplorerUrl = `https://www.mintscan.io/neutron/txs/${result.txHash}`;
+      const receiptHTML = `
+        <h2>🎟️ MyLockChain Solana Premiere Receipt</h2>
 
-const receiptHTML = `
-  <h2>📄 Your LockChainCosmos Registration Receipt</h2>
+        <p><strong>🎬 Title of Feature:</strong> ${lastUploadedFileName}<br/>
+        <em>The blockbuster file you've registered—ready for its big premiere on the Solana blockchain.</em></p>
 
-  <p><strong>🚀 File Name:</strong> ${lastUploadedFileName}<br/>
-  <em>The title of your cosmic satellite — the original filename that launched this journey.</em></p>
+        <p><strong>📼 IPFS CID:</strong> ${ipfsHash}<br/>
+        <em>Your file’s unchangeable cinematic fingerprint, eternally stored in the decentralized film archive.</em></p>
 
-  <p><strong>🛰️ IPFS CID:</strong> ${ipfsHash}<br/>
-  <em>This is your satellite’s interplanetary fingerprint — the IPFS Content Identifier that ensures it never drifts from orbit.</em></p>
+        <p><strong>🎞️ Screening Room:</strong> <a href="${ipfsLink}" target="_blank">View Your Footage</a><br/>
+        <em>Revisit your footage anytime, anyplace. This film reel is forever accessible in the IPFS cinema.</em></p>
 
-  <p><strong>🔗 Retrieve Link:</strong> <a href="${ipfsLink}" target="_blank">${ipfsLink}</a><br/>
-  <em>Beam it back from the InterPlanetary File System any time. Your document is now decentralized and always retrievable.</em></p>
+        <p><strong>📽️ Document Hash (Hex):</strong> ${hashHex}<br/>
+        <em>The cryptographic signature proving your footage's authenticity—no cuts, no edits, no tricks.</em></p>
 
-  <p><strong>🧬 Document Hash (Hex):</strong> ${hashHex}<br/>
-  <em>This hex string is your file’s cryptographic DNA — a tamper-proof proof-of-existence forged at the edge of the Interchain.</em></p>
+        <p><strong>🕺 Registered By:</strong> Your MyLockChain Solana Production Team<br/>
+        <em>The crew behind securing your film's authenticity.</em></p>
 
-  <p><strong>📦 Base64 Format:</strong> ${base64}<br/>
-  <em>This is how your file’s essence travels through the Cosmos. CosmWasm contracts speak Base64 — it’s the lingua franca of smart contracts on Neutron.</em></p>
+        <p><strong>📅 Premiere Timestamp:</strong> ${readableTime}<br/>
+        <em>The exact moment your footage debuted on the blockchain—timestamped forever.</em></p>
 
-  <p><em>💡 Note:</em> CosmWasm requires base64-encoded input for binary data. That’s how we store your digital footprint in orbit.</p>
+        <p><strong>🎥 Smart Contract Studio:</strong> <a href="${contractExplorerUrl}" target="_blank">View Contract on Solscan</a><br/>
+        <em>The legendary studio housing your film's authenticity record.</em></p>
 
-  <p><strong>👤 Registered By:</strong> ${result.registrant || 'n/a'}<br/>
-  <em>This is the identity that signed your cosmic ledger — the wallet that etched your hash into the stars.</em></p>
+        <p><strong>🚗 Transaction Chase Scene:</strong> <a href="${transactionExplorerUrl}" target="_blank">${result.transactionHash}</a><br/>
+        <em>The fast-paced action sequence confirming your transaction's successful broadcast.</em></p>
 
-  <p><strong>🕰️ Timestamp:</strong> ${readableTime}<br/>
-  <em>Temporal coordinates of your launch — the precise Earth time your document entered the blockchain constellations.</em></p>
-
-  <p><strong>📡 Contract:</strong> <a href="${contractExplorerUrl}" target="_blank">View on Neutron Explorer</a><br/>
-  <em>This smart contract is your ground station — it holds the registration beacon forever on the Neutron chain.</em></p>
-
-  <p><strong>💫 Transaction:</strong> <a href="${transactionExplorerUrl}" target="_blank">${result.txHash}</a><br/>
-  <em>The rocket that carried your hash into orbit. This transaction is your immutable trail across the Cosmos.</em></p>
-`;
+        <p><em>🎟️ This receipt is your ticket stub, proving your file’s permanent debut and eternal screening on the Solana blockchain via MyLockChain.</em></p>
+      `;
 
       document.getElementById('receiptContent').innerHTML = receiptHTML;
       document.getElementById('receipt').style.display = 'block';
@@ -1771,16 +1762,18 @@ const receiptHTML = `
       setTimeout(() => {
         document.getElementById('receipt').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 300);
+
     } else {
-      alert('❌ Cosmos registration failed: ' + result.error);
+      alert('❌ Registration flopped at the box office: ' + result.error);
     }
   } catch (err) {
     console.error(err);
-    alert('❌ Cosmos registration error.');
+    alert('❌ A plot twist occurred during Solana registration.');
   } finally {
     toggleLoadingOverlay(false);
   }
 }
+
 
 
 

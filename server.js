@@ -1,6 +1,11 @@
 const { Keypair, Connection, PublicKey, SystemProgram } = require("@solana/web3.js");
 const anchor = require("@coral-xyz/anchor");
 const fs = require("fs");
+const nodemailer = require("nodemailer");
+const express = require("express");
+
+const app = express();
+app.use(express.json());
 
 const programId = new PublicKey(process.env.SOLANA_PROGRAM_ID);
 const keypair = Keypair.fromSecretKey(
@@ -12,9 +17,6 @@ const provider = new anchor.AnchorProvider(connection, wallet, {});
 const idl = require("./target/idl/mylockchain_solana.json");
 const program = new anchor.Program(idl, programId, provider);
 
-const nodemailer = require("nodemailer");
-
-
 app.post("/solanaSubmitDocument", async (req, res) => {
   try {
     const { documentHash } = req.body;
@@ -25,7 +27,7 @@ app.post("/solanaSubmitDocument", async (req, res) => {
     const hashBytes = Uint8Array.from(Buffer.from(documentHash.slice(2), "hex"));
     if (hashBytes.length !== 32) throw new Error("Hash must be 32 bytes");
 
-    const [recordPda] = await PublicKey.findProgramAddressSync(
+    const [recordPda] = PublicKey.findProgramAddressSync(
       [Buffer.from("record"), hashBytes],
       programId
     );
@@ -58,9 +60,9 @@ app.post("/checkRegistration", async (req, res) => {
     const hashBytes = Uint8Array.from(Buffer.from(hashHex.slice(2), "hex"));
     if (hashBytes.length !== 32) throw new Error("Hash must be 32 bytes");
 
-    const [recordPda] = await PublicKey.findProgramAddressSync(
+    const [recordPda] = PublicKey.findProgramAddressSync(
       [Buffer.from("record"), hashBytes],
-      program.programId
+      programId
     );
 
     let isRegistered = false;
@@ -68,14 +70,11 @@ app.post("/checkRegistration", async (req, res) => {
       const record = await program.account.record.fetch(recordPda);
       isRegistered = record?.isInitialized ?? false;
     } catch (e) {
-      console.warn("ℹ️ Document not found on Solana:", e.message);
       isRegistered = false;
     }
 
     res.json({ isRegistered });
-
   } catch (err) {
-    console.error("/checkRegistration error:", err.message);
     res.status(500).json({ error: err.message });
   }
 });
@@ -90,13 +89,12 @@ app.post("/getDetails", async (req, res) => {
     const hashBytes = Uint8Array.from(Buffer.from(hashHex.slice(2), "hex"));
     if (hashBytes.length !== 32) throw new Error("Hash must be 32 bytes");
 
-    const [recordPda] = await PublicKey.findProgramAddressSync(
+    const [recordPda] = PublicKey.findProgramAddressSync(
       [Buffer.from("record"), hashBytes],
-      program.programId
+      programId
     );
 
     const record = await program.account.record.fetch(recordPda);
-
     if (!record?.isInitialized) {
       return res.status(404).json({ error: "Document not registered on Solana." });
     }
@@ -105,12 +103,15 @@ app.post("/getDetails", async (req, res) => {
       registrant: record.registrant.toBase58(),
       timestamp: record.timestamp.toString(),
     });
-
   } catch (err) {
-    console.error("/getDetails error:", err.message);
     res.status(500).json({ error: err.message });
   }
 });
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`🚀 MyLockChain Solana API running on port ${process.env.PORT || 3000}`);
+});
+
 
 app.post("/sendReceipt", async (req, res) => {
   try {
@@ -131,7 +132,6 @@ app.post("/sendReceipt", async (req, res) => {
 
     const readableTime = new Date(Number(timestamp) * 1000).toLocaleString();
     const ipfsLink = `https://gateway.pinata.cloud/ipfs/${ipfsHash}`;
-    const base64 = Buffer.from(hashHex.replace(/^0x/, ""), "hex").toString("base64");
     const contractUrl = `https://solscan.io/account/${contractAddress || process.env.SOLANA_PROGRAM_ID}`;
     const transactionUrl = `https://solscan.io/tx/${txHash}`;
 
@@ -147,8 +147,7 @@ app.post("/sendReceipt", async (req, res) => {
       <p><strong>🔗 Retrieve Link:</strong> <a href="${ipfsLink}" target="_blank">${ipfsLink}</a></p>
 
       <p><strong>🧬 Document Hash (Hex):</strong> ${hashHex}</p>
-      <p><strong>📄 Base64:</strong> ${base64}</p>
-
+      
       <p><strong>👤 Registered By:</strong> ${registrant}</p>
       <p><strong>🕰️ Timestamp:</strong> ${readableTime}</p>
 

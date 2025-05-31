@@ -7,7 +7,7 @@ declare_id!("CqrVHNKuxk61bwZCpT7Bo7QygrNh94RiVkhcXjZ6vTb");
 #[program]
 // Define the main program module
 pub mod mylockchain_solana {
-    use super::*;
+    use super::*;  
 
     // Entry point for registering a document hash on-chain
     pub fn register(ctx: Context<Register>, document_hash: [u8; 32]) -> Result<()> {
