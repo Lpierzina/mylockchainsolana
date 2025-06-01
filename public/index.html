@@ -453,7 +453,6 @@ h2, h3 {
       0%   { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-   /* Media Query for Mobile */
    @media (max-width: 768px) {
   body {
     padding: 10px;
@@ -495,11 +494,28 @@ h2, h3 {
     box-sizing: border-box;
   }
 
-  .ipfs-section, .wallet-background-section, .step-image-section {
+  /* 🟩 Updated for .ipfs-section */
+  .ipfs-section {
+    height: auto; /* Let it grow to fit content */
+    padding: 10px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .ipfs-section h3 {
+    font-size: 1.2em;
+  }
+
+  .ipfs-section p {
+    font-size: 1em;
+    line-height: 1.4;
+  }
+
+  .wallet-background-section, .step-image-section {
     height: 120px;
   }
 
-  .ipfs-section h3, .ipfs-section p,
   .wallet-background-section h3, .step-image-section h3 {
     font-size: 1.2em;
   }
@@ -537,6 +553,7 @@ h2, h3 {
     word-break: break-all;
   }
 }
+
 
 
 
@@ -578,7 +595,6 @@ h2, h3 {
 
 
   <!-- "How to Use" button + hidden 6 steps -->
-  <button onclick="toggleSection('howToUseSection')">How to Use MyLockChain</button>
   <div id="howToUseSection" style="display:none; margin-top:30px;">
     <!-- 6-step instructions from your code -->
   <h2>How to Use MyLockChain</h2>
