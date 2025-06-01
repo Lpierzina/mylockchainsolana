@@ -79,6 +79,7 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   letter-spacing: 2px;
   margin: 0;
+  text-align: center;
 }
 
 .navbar p {
@@ -950,42 +951,50 @@ while its hash blasts off to Neutron’s smart contract layer for permanent regi
   </p>
 
   <!-- 🌌 Background image section with overlay content -->
-  <div class="ipfs-section" style="background-image: url('/70sImage.png');">
-    <h3>IPFS Document Storage</h3>
-    <p>Pinned across the Cosmos. Immutable. Permanent. Decentralized.</p>
-  </div>
-
-  <p>
-    <strong>Pinning Fees &amp; File Size Limits:</strong><br/>
-    - Files up to 0.5MB: <strong>$3</strong><br/>
-    - 0.5MB – 5MB: <strong>$5</strong><br/>
-    - 5MB – 20MB: <strong>$10</strong><br/>
-    - 20MB – 50MB: <strong>$15</strong><br/>
-    - <em>Note:</em> Files over 50MB aren’t allowed.
+<div class="ipfs-section" style="background-image: url('/70sImage.png'); text-align: center; padding: 20px;">
+  <h3 style="color: #FF8C00;">IPFS Document Storage</h3>
+  <p style="font-size: 1.1em; font-weight: bold;">
+    Pinned across the Cosmos.<br/>
+    Immutable. Permanent. Decentralized.
   </p>
-
-  <p>
-    <em>Why Pin?</em> Without pinning, your file might be garbage-collected if no node
-    hosts it. Pinning ensures permanence in the decentralized network.
-  </p>
-
-  <!-- Upload and hash button -->
-  <button id="uploadBtn" onclick="handleFileAndPayment()">Upload and Hash Document</button>
-  <div id="paypal-button-container" style="display:none; margin-bottom:20px;"></div>
-  <p id="hashOutput"></p>
 </div>
 
+<p style="text-align: center; font-style: italic; margin-top: 20px;">
+  🌀 First, your document’s unique fingerprint (a cryptographic hash) is created.<br/>
+  🌐 Next, it’s pinned to IPFS — scattered across a cosmic network of nodes.<br/>
+  🪐 Finally, the hash is locked on-chain, making it verifiable and tamper-proof — forever!
+</p>
 
+<p style="text-align: center; font-size: 1em;">
+  <strong>Pinning Fees &amp; File Size Limits:</strong><br/>
+  - Files up to 0.5MB: <strong>$3</strong><br/>
+  - 0.5MB – 5MB: <strong>$5</strong><br/>
+  - 5MB – 20MB: <strong>$10</strong><br/>
+  - 20MB – 50MB: <strong>$15</strong><br/>
+  - <em>Note:</em> Files over 50MB aren’t allowed.
+</p>
 
+<p style="text-align: center;">
+  <em>Why Pin?</em> Without pinning, your file might be garbage-collected if no node hosts it.
+  Pinning ensures permanence in the decentralized network.
+</p>
 
-
-
-  <h3>Retrieve your document from the IPFS</h3>
-
-    <input type="text" id="retrieveHash" placeholder="Enter IPFS Hash" />
-    <button onclick="retrieveDocument()">Retrieve Document</button>
-    <a id="retrievedLink" href="#" target="_blank">Download Document</a>
+<div style="text-align: center; margin-top: 20px;">
+  <button id="uploadBtn" onclick="handleFileAndPayment()" style="padding: 12px 20px; font-size: 1em;">
+    Upload and Hash Document
+  </button>
 </div>
+
+<div id="paypal-button-container" style="display: none; margin: 20px auto; text-align: center;"></div>
+<p id="hashOutput" style="text-align: center;"></p>
+
+<h3 style="text-align: center; margin-top: 40px;">Retrieve your document from the IPFS</h3>
+<div style="text-align: center;">
+  <input type="text" id="retrieveHash" placeholder="Enter IPFS Hash" style="margin-top: 10px; width: 80%; max-width: 300px;"/>
+  <button onclick="retrieveDocument()" style="margin-top: 10px;">Retrieve Document</button>
+  <a id="retrievedLink" href="#" target="_blank" style="display: block; margin-top: 10px;">Download Document</a>
+</div>
+
 
 
 </div> <!-- closes .container -->
