@@ -455,6 +455,14 @@ h2, h3 {
       0%   { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+
+section.intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px; /* Adds space between typed text and image */
+}
+    
    @media (max-width: 768px) {
   body {
     padding: 10px;
@@ -554,6 +562,14 @@ h2, h3 {
     font-size: 0.9em;
     word-break: break-all;
   }
+
+  section.intro {
+    flex-direction: column; /* Stack on smaller screens */
+  }
+
+  section.intro div {
+    width: 100%;
+  }
 }
 
 
@@ -595,8 +611,11 @@ h2, h3 {
     <p>A Solana Picture | Filmed in Rust | Mastered with Anchor | Powered by $SOL</p>
   </header>
 
-  <section class="intro">
-  <div id="typedIntro" class="typing-script"></div>
+ <section class="intro" style="display: flex; align-items: center; justify-content: space-between;">
+  <div id="typedIntro" class="typing-script" style="flex: 1;"></div>
+  <div style="flex: 1; text-align: right;">
+    <img src="/female_side_profile_with_laptop.png" alt="Happy woman working" style="max-width: 100%; height: auto; border-radius: 8px;">
+  </div>
 </section>
 
 
@@ -2014,4 +2033,4 @@ async function verifyDocument() {
 
 </body>
 </html>
-Editing this file to see if Git notices
+
