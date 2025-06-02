@@ -798,27 +798,30 @@ while its hash blasts off to Neutron’s smart contract layer for permanent regi
     </div>
 
     <!-- Step 1 Section (File + Maricopa) -->
-  <div class="shade-box">
+  <div class="shade-box" style="position: relative;">
+  <!-- Image in top-right corner -->
+  <img src="/girl with lockchain receipt happy.png"
+       alt="Happy MyLockChain user"
+       style="position: absolute; top: 10px; right: 10px; width: 100px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);" />
 
-<h3>Step 1: Prepare Your Document</h3>
-    <p>
-  Choose the file you want to protect. Supported file types include:
-  <ul>
-    <li>PDF files (.pdf)</li>
-    <li>Text files (.txt)</li>
-    <li>Solidity source files (.sol)</li>
-    <li>Images (.jpg, .jpeg, .png)</li>
-    <li>Videos (.mp4)</li>
-    <!-- Add more types here if needed -->
-  </ul>
-  When you upload a file, it will be stored on IPFS (InterPlanetary File System), a decentralized storage network that distributes your file across many computers, ensuring it remains available and resistant to censorship. At the same time, a unique cryptographic hash is generated from the file’s contents. This hash acts as a digital fingerprint, guaranteeing the file’s integrity—any change to the file will result in a different hash, so you can later verify that the file hasn’t been tampered with.
-</p>
-    <!-- Updated File Input for multiple file types -->
-<input type="file" id="fileInput" accept=".pdf,.txt,.sol,.jpg,.jpeg,.png,.mp4" />
+  <h3>Step 1: Prepare Your Document</h3>
+  <p>
+    Choose the file you want to protect. Supported file types include:
+    <ul>
+      <li>PDF files (.pdf)</li>
+      <li>Text files (.txt)</li>
+      <li>Solidity source files (.sol)</li>
+      <li>Images (.jpg, .jpeg, .png)</li>
+      <li>Videos (.mp4)</li>
+    </ul>
+    When you upload a file, it will be stored on IPFS (InterPlanetary File System), a decentralized storage network that distributes your file across many computers, ensuring it remains available and resistant to censorship. At the same time, a unique cryptographic hash is generated from the file’s contents. This hash acts as a digital fingerprint, guaranteeing the file’s integrity—any change to the file will result in a different hash, so you can later verify that the file hasn’t been tampered with.
+  </p>
 
-    <p id="fileNameOutput"></p>
-
+  <!-- Updated File Input for multiple file types -->
+  <input type="file" id="fileInput" accept=".pdf,.txt,.sol,.jpg,.jpeg,.png,.mp4" />
+  <p id="fileNameOutput"></p>
 </div>
+
 
   <!-- This entire block is hidden by default -->
 <div id="maricopaSection" style="display:none;">
