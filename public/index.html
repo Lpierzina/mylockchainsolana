@@ -1278,6 +1278,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 12000); // Every 12 seconds (between 10-15s as requested)
 });
 
+
+
 document.addEventListener('DOMContentLoaded', () => {
   const introImage = document.getElementById('introImage');
 
@@ -1292,14 +1294,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // 1️⃣ Start with the first image hidden
   introImage.style.opacity = '0';
 
-  // 2️⃣ After 5 seconds, fade in the first image
+  // 2️⃣ After 5 seconds, fade in the first image slowly
   setTimeout(() => {
     introImage.src = images[0];
     introImage.style.opacity = '1';
-  }, 5000); // 5 seconds fade-in
+  }, 5000);
 
-  // 3️⃣ Start rotating after the first fade-in
+  // 3️⃣ After the first fade-in, reset to normal fade duration for future rotations
   setTimeout(() => {
+    introImage.style.transition = 'opacity 1s ease-in-out';
+
     setInterval(() => {
       introImage.style.opacity = '0';
       setTimeout(() => {
@@ -1307,9 +1311,11 @@ document.addEventListener('DOMContentLoaded', () => {
         introImage.src = images[currentIndex];
         introImage.style.opacity = '1';
       }, 1000); // 1s fade-out
-    }, 17000); // rotate every 17s
-  }, 5000); // wait 5s to start rotating
+    }, 17000);
+  }, 10000); // 5s delay + 5s fade-in = 10s total
 });
+
+
 
 function startOverlayTypingLoop() {
   const overlayText = document.querySelector('#loadingOverlay p');
