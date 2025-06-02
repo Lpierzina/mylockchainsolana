@@ -570,6 +570,20 @@ section.intro {
   section.intro div {
     width: 100%;
   }
+
+  .shade-box {
+    position: relative; /* already exists */
+    text-align: center; /* center image + text */
+  }
+
+  .shade-box img {
+    position: static !important; /* remove absolute positioning */
+    display: block;
+    margin: 0 auto 15px; /* center and add bottom margin */
+    width: 80% !important; /* shrink image width on mobile */
+    height: auto;
+    max-width: 250px; /* limit to avoid overflowing */
+  }
 }
 
 
