@@ -615,11 +615,12 @@ section.intro {
   <div id="typedIntro" class="typing-script" style="flex: 1;"></div>
   <div style="flex: 1; text-align: right;">
     <img id="introImage"
-         src="/images/female_back_profile_with_laptop.png"
+         src=""
          alt="Happy woman working"
          style="max-width: 100%; height: auto; border-radius: 8px; transition: opacity 1s ease-in-out;">
   </div>
 </section>
+
 
 
 
@@ -1280,21 +1281,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const introImage = document.getElementById('introImage');
 
   const images = [
-    '/female back profile with laptop.png',
-    '/female side profile with laptop.png',
-    '/female front profile with laptop.png'
+    '/images/female_back_profile_with_laptop.png',
+    '/images/female_side_profile_with_laptop.png',
+    '/images/female_front_profile_with_laptop.png'
   ];
 
   let currentIndex = 0;
 
-  setInterval(() => {
-    introImage.style.opacity = '0';
-    setTimeout(() => {
-      currentIndex = (currentIndex + 1) % images.length;
-      introImage.src = images[currentIndex];
-      introImage.style.opacity = '1';
-    }, 1000); // 1s fade transition
-  }, 17000); // Change every 17 seconds (adjust to 15–20 as needed)
+  // 1️⃣ Start with the first image hidden
+  introImage.style.opacity = '0';
+
+  // 2️⃣ After 5 seconds, fade in the first image
+  setTimeout(() => {
+    introImage.src = images[0];
+    introImage.style.opacity = '1';
+  }, 5000); // 5 seconds fade-in
+
+  // 3️⃣ Start rotating after the first fade-in
+  setTimeout(() => {
+    setInterval(() => {
+      introImage.style.opacity = '0';
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        introImage.src = images[currentIndex];
+        introImage.style.opacity = '1';
+      }, 1000); // 1s fade-out
+    }, 17000); // rotate every 17s
+  }, 5000); // wait 5s to start rotating
 });
 
 function startOverlayTypingLoop() {
